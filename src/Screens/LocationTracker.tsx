@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, Platform, PermissionsAndroid } from 'react-native';
 import Geolocation, { GeolocationResponse, GeolocationError } from '@react-native-community/geolocation';
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 import User from '../Utility/user';
 
 const LocationTracker: React.FC = () => {
   const [locationPermission, setLocationPermission] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const generatedUserId = generateUserId();
@@ -70,6 +72,7 @@ const LocationTracker: React.FC = () => {
   };
 
   const saveUserData = (user: User): void => {
+    // Save user data to Firestore
     firestore()
       .collection('users')
       .doc(user.getId())
@@ -79,7 +82,9 @@ const LocationTracker: React.FC = () => {
         longitude: user.getLongitude(),
       })
       .then(() => {
-        console.log('User data saved successfully');
+        // Navigate to LiveMap screen
+        navigation.navigate('LiveMap');
+
       })
       .catch((error) => {
         console.warn('Error saving user data:', error);
