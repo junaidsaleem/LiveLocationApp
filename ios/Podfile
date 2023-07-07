@@ -32,9 +32,6 @@ target 'LiveLocationApp' do
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
-  pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
-  pod 'GoogleMaps'
-  pod 'Google-Maps-iOS-Utils'
 
   # Flags change depending on the env values.
   flags = get_default_flags()
